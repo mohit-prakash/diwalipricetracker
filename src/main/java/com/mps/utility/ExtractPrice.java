@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 	
-public class ExtractPrice {
+public interface ExtractPrice {
 		public static String[] findPrice(String args) throws IOException  {
 			
 			XSSFWorkbook workbook1=null;
