@@ -15,14 +15,11 @@
             <div class="card-body" style="font-size:2vw;">
                 <form th:action="@{/diwali/check}" method="get">
                 <div class="row">
-                    <div class="col-2">
-                <label for="modelNumber">Model No</label>
+                    <div class="col-8 col-md-2">
+                <label for="modelNumber" style="font-size:25px;">Model No</label>
             </div>
-            <div class="col-3">
-                <input type="text" name="modelNumber" id="modelNumber" placeholder="try with last 4 character" class="form-control">
-            </div>
-            <div class="col-7">
-                <span id="modelNumberError"></span>
+            <div class="col-10 col-md-10">
+                <input type="text" name="modelNumber" id="modelNumber" placeholder="try with last 4 character" class="form-control"><br>
             </div>
             </div>
                 <button type="submit" class="btn btn-success">Check Price</button>
