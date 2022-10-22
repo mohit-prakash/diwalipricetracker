@@ -25,8 +25,11 @@
                 <button type="submit" class="btn btn-success">Check Price</button>
             </form>
             </div>
-            <div class="card-footer" th:if="${message}!=null">
-                <span th:text="${message}"></span>
+            <div class="card-footer" th:if="${diwaliPrice}!=null">
+                Item <h3 th:text="${diwaliPrice.getModelName()}"></h3><br>
+                MRP <h3 th:text="${diwaliPrice.getMrp()}"></h3><br>
+                DP <h3 th:text="${diwaliPrice.getDp()}"></h3><br>
+                SRP <h3 th:text="${diwaliPrice.getSrp()}"></h3>
             </div>
         </div>
     </div>
