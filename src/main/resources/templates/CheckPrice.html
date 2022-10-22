@@ -7,19 +7,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
-    <div class="container">
+    
+    <div class="container" style="font-size:2vw;">
         <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h1>Diwali Price Tracker</h1>
+            <div class="card-header bg-success text-white">
+                
+                <h2 >Digital World</h2>
+                <h4 style="display: inline; margin-right: 600px;">Diwali Price Tracker <h5 style="display: inline; text-align: end;">Designed By: Mohit Prakash</h5></h4>
+                
             </div>
-            <div class="card-body" style="font-size:2vw;">
+            <div class="card-body" >
                 <form th:action="@{/diwali/check}" method="get">
                 <div class="row">
                     <div class="col-8 col-md-2">
                 <label for="modelNumber" style="font-size:25px;">Model No</label>
             </div>
-            <div class="col-10 col-md-10">
-                <input type="text" name="modelNumber" id="modelNumber" placeholder="try with last 4 character" class="form-control"><br>
+            <div class="col-10 col-md-4">
+                <input type="text" name="modelNumber" id="modelNumber" placeholder="try with last 4 character (Unique)" class="form-control">
             </div>
             </div>
                 <button type="submit" class="btn btn-success">Check Price</button>
