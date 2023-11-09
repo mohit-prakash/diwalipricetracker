@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ExtractPrice {
+	private final String filePath="DiwaliPriceList.xlsx";
 	public DiwaliPriceModel findPrice(String args) throws IOException {
 
 		DiwaliPriceModel diwaliPriceModel = new DiwaliPriceModel();
 		XSSFWorkbook workbook1 = null;
 		try {
-			FileInputStream fis1 = new FileInputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+			FileInputStream fis1 = new FileInputStream(filePath);
 			workbook1 = new XSSFWorkbook(fis1);
 			XSSFSheet sheet1 = workbook1.getSheetAt(0);
 
@@ -50,7 +51,7 @@ public class ExtractPrice {
 		List<DiwaliPriceModel> list = new ArrayList<>();
 		XSSFWorkbook workbook1 = null;
 		try {
-			FileInputStream fis1 = new FileInputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+			FileInputStream fis1 = new FileInputStream(filePath);
 			workbook1 = new XSSFWorkbook(fis1);
 			XSSFSheet sheet1 = workbook1.getSheetAt(0);
 			for (int i = 1; i <= sheet1.getLastRowNum(); i++) {
@@ -72,7 +73,7 @@ public class ExtractPrice {
 		XSSFWorkbook workbook1 = null;
 		boolean flag=false;
 		try {
-			FileInputStream fis1 = new FileInputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+			FileInputStream fis1 = new FileInputStream(filePath);
 			workbook1 = new XSSFWorkbook(fis1);
 			XSSFSheet sheet1 = workbook1.getSheetAt(0);
 			for (int i = 1; i <= sheet1.getLastRowNum(); i++) {
@@ -83,7 +84,7 @@ public class ExtractPrice {
 					sheet1.getRow(i).getCell(2).setCellValue(diwaliPriceModel.getDp());
 					sheet1.getRow(i).getCell(3).setCellValue(diwaliPriceModel.getSrp());
 					flag=true;
-					FileOutputStream fos1 = new FileOutputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+					FileOutputStream fos1 = new FileOutputStream(filePath);
 					workbook1.write(fos1);
 					fos1.close();
 					break;
@@ -100,7 +101,7 @@ public class ExtractPrice {
 		XSSFWorkbook workbook1 = null;
 		boolean flag=false;
 		try {
-			FileInputStream fis1 = new FileInputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+			FileInputStream fis1 = new FileInputStream(filePath);
 			workbook1 = new XSSFWorkbook(fis1);
 			XSSFSheet sheet1 = workbook1.getSheetAt(0);
 			for (int i = 1; i <= sheet1.getLastRowNum(); i++) {
@@ -114,7 +115,7 @@ public class ExtractPrice {
 						sheet1.shiftRows(rowIndex + 1, lastRowNum, -1);
 					}
 					flag=true;
-					FileOutputStream fos1 = new FileOutputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+					FileOutputStream fos1 = new FileOutputStream(filePath);
 					workbook1.write(fos1);
 					fos1.close();
 					break;
@@ -132,7 +133,7 @@ public class ExtractPrice {
 		XSSFWorkbook workbook1 = null;
 		boolean flag=false;
 		try {
-			FileInputStream fis1 = new FileInputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+			FileInputStream fis1 = new FileInputStream(filePath);
 			workbook1 = new XSSFWorkbook(fis1);
 			XSSFSheet sheet1 = workbook1.getSheetAt(0);
 			int lastRowNum = sheet1.getLastRowNum();
@@ -143,7 +144,7 @@ public class ExtractPrice {
 			sheet1.getRow(1).createCell(1).setCellValue(diwaliPriceModel.getMrp());
 			sheet1.getRow(1).createCell(2).setCellValue(diwaliPriceModel.getDp());
 			sheet1.getRow(1).createCell(3).setCellValue(diwaliPriceModel.getSrp());
-			FileOutputStream fos1 = new FileOutputStream("src/main/java/com/mps/utility/DiwaliPriceList.xlsx");
+			FileOutputStream fos1 = new FileOutputStream(filePath);
 			workbook1.write(fos1);
 			flag=true;
 			fos1.close();
