@@ -1,18 +1,12 @@
 package com.mps.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DiwaliModel {
 	private String modelNumber;
-
-	public String getModelNumber() {
-		return modelNumber;
-	}
-
-	public void setModelNumber(String modelNumber) {
-		this.modelNumber = modelNumber;
-	}
-
-	@Override
-	public String toString() {
-		return "DiwaliModel [modelNumber=" + modelNumber + "]";
-	}
 }

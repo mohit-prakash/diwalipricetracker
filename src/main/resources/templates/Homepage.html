@@ -1,0 +1,50 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head th:fragment="header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<div th:fragment="menu">
+<nav class="navbar navbar-expand navbar-light bg-light">
+    <a class="navbar-brand" th:href="@{/dw/add}">DigitalWorld</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/dw/add}">AddItem <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/dw/list}">List <span class="sr-only">(current)</span></a>
+            </li>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/dw/checkPriceAtHome}" method="get">
+                <input class="form-control mr-sm-2" type="search" name="modelNumber" id="modelNumber" placeholder="try with last 4 character" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Check Price</button>
+            </form>
+        </ul>
+    </div>
+</nav>
+<div class="card-footer" th:if="${diwaliPrice}!=null">
+    <table class="table table-hover">
+        <tr>
+            <th>Item</th>
+            <th>MRP</th>
+            <th>DP</th>
+            <th>SRP</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td th:text="${diwaliPrice.getModelName()}"></td>
+            <td th:text="${diwaliPrice.getMrp()}"></td>></td>
+            <td th:text="${diwaliPrice.getDp()}"></td>></td>
+            <td th:text="${diwaliPrice.getSrp()}"></td>
+            <td><a th:href="@{/dw/edit(modelName=${diwaliPrice.getModelName()})}" class="btn btn-warning">Edit</a>
+        </tr>
+    </table>
+</div>
+</div>
+</html>

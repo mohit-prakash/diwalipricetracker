@@ -1,0 +1,39 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org">
+<div th:replace="Homepage :: header"></div>
+<body>
+<div th:replace="Homepage :: menu"></div>
+<div class="container" style="font-size:2vw;">
+    <div class="card">
+        <div class="card-header bg-success text-white">
+
+            <h2 >Digital World</h2>
+            <h4 style="display: inline; margin-right: 600px;">Diwali Price Tracker <h6 style="display: inline; text-align: end;">Designed By: Mohit Prakash</h6></h4>
+
+        </div>
+        <div class="card-body" >
+            <table class="table table-hover">
+                <tr>
+                    <th>Item</th>
+                    <th>MRP</th>
+                    <th>DP</th>
+                    <th>SRP</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="ob:${wholeList}">
+                    <td th:text="${ob.modelName}"></td>
+                    <td th:text="${ob.mrp}"></td>
+                    <td th:text="${ob.dp}"></td>
+                    <td th:text="${ob.srp}"></td>
+                    <td><a th:href="@{/dw/edit(modelName=${ob.modelName})}" class="btn btn-warning">Edit</a> | <a th:href="@{/dw/delete(modelName=${ob.modelName})}" class="btn btn-danger"> Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer" th:if="${message}!=null">
+            <h6 th:text="${message}"></h6>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
