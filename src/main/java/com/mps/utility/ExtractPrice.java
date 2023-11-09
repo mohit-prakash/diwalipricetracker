@@ -56,6 +56,7 @@ public class ExtractPrice {
 			FileInputStream fis1 = new FileInputStream(filePath);
 			workbook1 = new XSSFWorkbook(fis1);
 			XSSFSheet sheet1 = workbook1.getSheetAt(0);
+			int x= sheet1.getLastRowNum();
 			for (int i = 1; i <= sheet1.getLastRowNum(); i++) {
 				DiwaliPriceModel diwaliPriceModel = DiwaliPriceModel.builder().modelName(sheet1.getRow(i).getCell(0).toString())
 						.mrp(sheet1.getRow(i).getCell(1).toString())
@@ -241,6 +242,8 @@ public class ExtractPrice {
 			return "LWM";
 		} else if (modelName.startsWith("GL")){
 			return "LRR";
+		} else if (modelName.startsWith("IFB")){
+			return "IWM";
 		} else {
 			return "";
 		}
