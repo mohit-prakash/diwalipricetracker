@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -144,6 +146,7 @@ public class ExtractPrice {
 			sheet1.getRow(1).createCell(1).setCellValue(diwaliPriceModel.getMrp());
 			sheet1.getRow(1).createCell(2).setCellValue(diwaliPriceModel.getDp());
 			sheet1.getRow(1).createCell(3).setCellValue(diwaliPriceModel.getSrp());
+			sheet1.getRow(1).createCell(4).setCellValue(getType(diwaliPriceModel.getModelName()));
 			FileOutputStream fos1 = new FileOutputStream(filePath);
 			workbook1.write(fos1);
 			flag=true;
@@ -155,4 +158,92 @@ public class ExtractPrice {
 		}
 		return flag;
 	}
+	public List<DiwaliPriceModel> findModelByRange(String startPrice, String endPrice,String category) throws IOException {
+		List<DiwaliPriceModel> list = searchByCategory(category);
+		List<DiwaliPriceModel> modelList = list.stream().filter((model) -> {
+			String srpStr = model.getSrp();
+			srpStr = srpStr.substring(0, srpStr.indexOf('.'));
+			long srp = Long.parseLong(srpStr);
+			long sp = Long.parseLong(startPrice);
+			long ep = Long.parseLong(endPrice);
+			if (srp >= sp && srp <= ep) {
+				return true;
+			} else {
+				return false;
+			}
+		}).collect(Collectors.toList());
+		return modelList;
+	}
+	public List<DiwaliPriceModel> findModelByRange(String startPrice, String endPrice) throws IOException {
+		List<DiwaliPriceModel> list = new ArrayList<>();
+		XSSFWorkbook workbook1 = null;
+		long sp=Long.parseLong(startPrice);
+		long ep=Long.parseLong(endPrice);
+		try {
+			FileInputStream fis1 = new FileInputStream(filePath);
+			workbook1 = new XSSFWorkbook(fis1);
+			XSSFSheet sheet1 = workbook1.getSheetAt(0);
+			for (int i = 1; i <= sheet1.getLastRowNum(); i++) {
+				String srpStr = sheet1.getRow(i).getCell(3).toString();
+				srpStr=srpStr.substring(0,srpStr.indexOf('.'));
+				long srp=Long.parseLong(srpStr);
+				if (srp>=sp && srp<=ep){
+					DiwaliPriceModel diwaliPriceModel = DiwaliPriceModel.builder().modelName(sheet1.getRow(i).getCell(0).toString())
+							.mrp(sheet1.getRow(i).getCell(1).toString())
+							.dp(sheet1.getRow(i).getCell(2).toString())
+							.srp(sheet1.getRow(i).getCell(3).toString()).build();
+					list.add(diwaliPriceModel);
+				}
+			}
+		} catch (IOException ioe) {
+			log.info("Something Wrong" + ioe.getMessage());
+		} finally {
+			workbook1.close();
+		}
+		return list;
+	}
+
+	public List<DiwaliPriceModel> searchByCategory(String category) throws IOException {
+		List<DiwaliPriceModel> list = new ArrayList<>();
+		XSSFWorkbook workbook1 = null;
+		try {
+			FileInputStream fis1 = new FileInputStream(filePath);
+			workbook1 = new XSSFWorkbook(fis1);
+			XSSFSheet sheet1 = workbook1.getSheetAt(0);
+			for (int i = 1; i <= sheet1.getLastRowNum(); i++) {
+				String catFromFile = sheet1.getRow(i).getCell(4).toString();
+				if (catFromFile.contains(category)){
+					DiwaliPriceModel diwaliPriceModel = DiwaliPriceModel.builder().modelName(sheet1.getRow(i).getCell(0).toString())
+							.mrp(sheet1.getRow(i).getCell(1).toString())
+							.dp(sheet1.getRow(i).getCell(2).toString())
+							.srp(sheet1.getRow(i).getCell(3).toString()).build();
+					list.add(diwaliPriceModel);
+				}
+			}
+		} catch (IOException ioe) {
+			log.info("Something Wrong" + ioe.getMessage());
+		} finally {
+			workbook1.close();
+		}
+		return list;
+	}
+
+	private String getType(String modelName){
+		if (modelName.startsWith("3")){
+			return "WWM";
+		} else if(modelName.startsWith("2") || modelName.startsWith("7")){
+			return "WRR";
+		} else if (modelName.startsWith("RR") || modelName.startsWith("RT")){
+			return "SRR";
+		} else if (modelName.startsWith("WA") || modelName.startsWith("WM")){
+			return "SWM";
+		} else if (modelName.startsWith("FH") || modelName.startsWith("P") || modelName.startsWith("T")){
+			return "LWM";
+		} else if (modelName.startsWith("GL")){
+			return "LRR";
+		} else {
+			return "";
+		}
+	}
+
 }

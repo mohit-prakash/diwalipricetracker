@@ -110,4 +110,23 @@ public class PriceController {
 		}
 		return "redirect:add";
 	}
+
+	@GetMapping("/findModelByRange")
+	public String findModelByRange(@RequestParam(name = "startPrice",required = false)String startPrice,@RequestParam(name = "endPrice",required = false)String endPrice,@RequestParam("category")String category,Model model) throws IOException {
+		List<DiwaliPriceModel> list=null;
+		if(startPrice.isEmpty() || endPrice.isEmpty()){
+			list = extractPrice.searchByCategory(category);
+		} else {
+			list = extractPrice.findModelByRange(startPrice,endPrice,category);
+		}
+		model.addAttribute("wholeList",list);
+		return "WholeList";
+	}
+
+	@GetMapping("/searchByCategory")
+	public String searchByCategory(@RequestParam("category")String category,Model model) throws IOException {
+		List<DiwaliPriceModel> byCategory = extractPrice.searchByCategory(category);
+		model.addAttribute("wholeList",byCategory);
+		return "WholeList";
+	}
 }
