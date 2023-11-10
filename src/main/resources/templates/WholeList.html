@@ -37,14 +37,14 @@
                     <th>MRP</th>
                     <th>DP</th>
                     <th>SRP</th>
-                    <th>Action</th>
+<!--                    <th>Action</th>-->
                 </tr>
                 <tr th:each="ob:${wholeList}">
                     <td th:text="${ob.modelName}"></td>
                     <td th:text="${ob.mrp}"></td>
                     <td th:text="${ob.dp}"></td>
                     <td th:text="${ob.srp}"></td>
-                    <td><a th:href="@{/dw/edit(modelName=${ob.modelName})}" class="btn btn-warning">Edit</a> | <a th:href="@{/dw/delete(modelName=${ob.modelName})}" class="btn btn-danger"> Delete</a></td>
+<!--                    <td><a th:href="@{/dw/edit(modelName=${ob.modelName})}" class="btn btn-warning">Edit</a> | <a th:href="@{/dw/delete(modelName=${ob.modelName})}" class="btn btn-danger"> Delete</a></td>-->
                 </tr>
             </table>
         </div>
