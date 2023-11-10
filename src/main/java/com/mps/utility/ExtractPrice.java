@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class ExtractPrice {
-	private final String filePath="src/main/java/com/mps/utility/DiwaliPriceList.xlsx";
+	private final String filePath="DiwaliPriceList.xlsx";
 	public DiwaliPriceModel findPrice(String args) throws IOException {
 
 		DiwaliPriceModel diwaliPriceModel = new DiwaliPriceModel();
