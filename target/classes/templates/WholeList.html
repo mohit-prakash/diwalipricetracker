@@ -1,0 +1,58 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org">
+<div th:replace="Homepage :: header"></div>
+<body>
+<div class="container" style="font-size:2vw;">
+    <div th:replace="Homepage :: menu"></div>
+    <div class="card">
+        <div class="card-header bg-success text-white" style="display:flex;">
+
+            <div>
+                <h2 >Digital World</h2>
+            </div>
+            <div style="margin-left:30px;">
+                <form class="form-inline my-2 my-lg-0" th:action="@{/dw/findModelByRange}" method="get">
+                    <input class="form-control mr-sm-2" type="search" name="startPrice" id="startPrice" placeholder="start">
+                    <input class="form-control mr-sm-2" type="search" name="endPrice" id="endPrice" placeholder="last">
+                    <select class="form-control mr-sm-2" name="category">
+                        <option value="">Select Category</option>
+                        <option value="RR">RR</option>
+                        <option value="SRR">Samsung RR</option>
+                        <option value="LRR">LG RR</option>
+                        <option value="WRR">Whirlpool RR</option>
+                        <option value="WM">WM</option>
+                        <option value="SWM">Samsung WM</option>
+                        <option value="LWM">LG WM</option>
+                        <option value="WWM">Whirlpool WM</option>
+                        <option value="IWM">IFB WM</option>
+                    </select>
+                    <button class="btn btn-primary" type="submit">Find Model</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body" >
+            <table class="table table-hover">
+                <tr>
+                    <th>Item</th>
+                    <th>MRP</th>
+                    <th>DP</th>
+                    <th>SRP</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="ob:${wholeList}">
+                    <td th:text="${ob.modelName}"></td>
+                    <td th:text="${ob.mrp}"></td>
+                    <td th:text="${ob.dp}"></td>
+                    <td th:text="${ob.srp}"></td>
+                    <td><a th:href="@{/dw/edit(modelName=${ob.modelName})}" class="btn btn-warning">Edit</a> | <a th:href="@{/dw/delete(modelName=${ob.modelName})}" class="btn btn-danger"> Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer" th:if="${message}!=null">
+            <h6 th:text="${message}"></h6>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
